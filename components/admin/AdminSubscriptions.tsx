@@ -85,7 +85,10 @@ export default function AdminSubscriptions() {
       {/* Plan breakdown */}
       <div className="grid sm:grid-cols-3 gap-4">
         {/* Pro */}
-        <div className="rounded-xl border border-accent/30 bg-card p-5 relative overflow-hidden">
+        <button
+          className="rounded-xl border border-accent/30 bg-card p-5 relative overflow-hidden text-left hover:-translate-y-0.5 hover:shadow-md transition-all"
+          onClick={() => setFilterPlan('pro')}
+        >
           <div className="absolute top-0 right-0 w-20 h-20 bg-accent/5 rounded-bl-full" />
           <div className="flex items-center gap-2 mb-3">
             <div className="h-8 w-8 rounded-lg bg-accent/15 flex items-center justify-center">
@@ -96,10 +99,13 @@ export default function AdminSubscriptions() {
           <p className="text-3xl font-bold">{proProviders.length}</p>
           <p className="text-xs text-muted-foreground mt-1">subscribers at $100/mo</p>
           <p className="text-xs text-accent font-medium mt-2">${(proProviders.length * 100).toLocaleString()}/mo revenue</p>
-        </div>
+        </button>
 
         {/* Basic */}
-        <div className="rounded-xl border border-primary/30 bg-card p-5 relative overflow-hidden">
+        <button
+          className="rounded-xl border border-primary/30 bg-card p-5 relative overflow-hidden text-left hover:-translate-y-0.5 hover:shadow-md transition-all"
+          onClick={() => setFilterPlan('basic')}
+        >
           <div className="absolute top-0 right-0 w-20 h-20 bg-primary/5 rounded-bl-full" />
           <div className="flex items-center gap-2 mb-3">
             <div className="h-8 w-8 rounded-lg bg-primary/15 flex items-center justify-center">
@@ -110,10 +116,13 @@ export default function AdminSubscriptions() {
           <p className="text-3xl font-bold">{basicProviders.length}</p>
           <p className="text-xs text-muted-foreground mt-1">subscribers at $50/mo</p>
           <p className="text-xs text-primary font-medium mt-2">${(basicProviders.length * 50).toLocaleString()}/mo revenue</p>
-        </div>
+        </button>
 
         {/* Free */}
-        <div className="rounded-xl border border-border bg-card p-5">
+        <button
+          className="rounded-xl border border-border bg-card p-5 text-left hover:-translate-y-0.5 hover:shadow-md transition-all"
+          onClick={() => setFilterPlan('none')}
+        >
           <div className="flex items-center gap-2 mb-3">
             <div className="h-8 w-8 rounded-lg bg-muted flex items-center justify-center">
               <Users className="h-4 w-4 text-muted-foreground" />
@@ -123,7 +132,7 @@ export default function AdminSubscriptions() {
           <p className="text-3xl font-bold">{freeProviders.length}</p>
           <p className="text-xs text-muted-foreground mt-1">providers with no plan</p>
           <p className="text-xs text-muted-foreground font-medium mt-2">Conversion opportunity</p>
-        </div>
+        </button>
       </div>
 
       {/* Subscriber list */}
@@ -184,11 +193,11 @@ export default function AdminSubscriptions() {
                         </span>
                       </td>
                       <td className="px-4 py-3.5 text-xs text-muted-foreground hidden lg:table-cell">
-                        {p.subscriptionRenewal || '—'}
+                        {p.subscriptionRenewal || '-'}
                       </td>
                       <td className="px-4 py-3.5 hidden md:table-cell">
                         <span className={`text-xs font-medium ${monthlyValue > 0 ? 'text-accent' : 'text-muted-foreground'}`}>
-                          {monthlyValue > 0 ? `$${monthlyValue}/mo` : '—'}
+                          {monthlyValue > 0 ? `$${monthlyValue}/mo` : '-'}
                         </span>
                       </td>
                       <td className="px-4 py-3.5">

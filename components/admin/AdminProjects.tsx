@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAppStore } from '@/lib/store'
 import { StatusBadge } from '@/components/ui/status-badge'
 import {
@@ -10,10 +10,16 @@ import {
 import type { ProjectStatus } from '@/lib/mock-data'
 
 export default function AdminProjects() {
-  const { projects, providers } = useAppStore()
+  const { projects, providers, activeProjectId } = useAppStore()
   const [search, setSearch] = useState('')
   const [filterStatus, setFilterStatus] = useState<ProjectStatus | 'all'>('all')
   const [expandedId, setExpandedId] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (activeProjectId) {
+      setExpandedId(activeProjectId)
+    }
+  }, [activeProjectId])
 
   const STATUS_OPTIONS: (ProjectStatus | 'all')[] = [
     'all', 'New', 'Matched', 'Proposal Received', 'Awarded', 'In Progress', 'Delivered', 'Completed',

@@ -35,6 +35,15 @@ export function StatCard({
         className
       )}
       onClick={onClick}
+      role={onClick ? 'button' : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      onKeyDown={(event) => {
+        if (!onClick) return
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault()
+          onClick()
+        }
+      }}
     >
       <div className="flex items-start justify-between">
         <div className="flex-1 min-w-0">
@@ -54,7 +63,7 @@ export function StatCard({
                 trendUp ? 'text-emerald-600' : alert ? 'text-yellow-600' : 'text-muted-foreground'
               )}
             >
-              {trendUp ? '↑ ' : ''}{trend}
+              {trendUp ? 'Up ' : ''}{trend}
             </p>
           )}
         </div>

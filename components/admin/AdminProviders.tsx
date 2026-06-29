@@ -102,7 +102,18 @@ export default function AdminProviders() {
           const isExpanded = expandedId === p.id
           return (
             <div key={p.id} className="rounded-xl border border-border bg-card overflow-hidden">
-              <div className="flex items-center gap-4 p-4">
+              <div
+                className="flex items-center gap-4 p-4 cursor-pointer hover:bg-muted/10 transition-colors"
+                onClick={() => setExpandedId(isExpanded ? null : p.id)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault()
+                    setExpandedId(isExpanded ? null : p.id)
+                  }
+                }}
+              >
                 {/* Avatar */}
                 <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
                   <Users className="h-5 w-5 text-primary" />
@@ -137,7 +148,10 @@ export default function AdminProviders() {
                     {p.subscriptionPlan === 'none' ? 'Free' : p.subscriptionPlan.charAt(0).toUpperCase() + p.subscriptionPlan.slice(1)}
                   </span>
                   <button
-                    onClick={() => setExpandedId(isExpanded ? null : p.id)}
+                    onClick={(event) => {
+                      event.stopPropagation()
+                      setExpandedId(isExpanded ? null : p.id)
+                    }}
                     className="text-xs text-primary hover:underline"
                   >
                     {isExpanded ? 'Collapse' : 'Manage'}

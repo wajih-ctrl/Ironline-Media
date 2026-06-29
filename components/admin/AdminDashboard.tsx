@@ -9,7 +9,7 @@ import {
 } from 'lucide-react'
 
 export default function AdminDashboard() {
-  const { companies, providers, projects } = useAppStore()
+  const { companies, providers, projects, setCurrentPage, setActiveProjectId } = useAppStore()
 
   const pendingApprovals = providers.filter((p) => p.approvalStatus === 'pending').length
   const activeProjects = projects.filter((p) => !['Completed', 'Delivered'].includes(p.status)).length
@@ -34,6 +34,16 @@ export default function AdminDashboard() {
     .slice(0, 5)
 
   const recentProjects = projects.slice(0, 5)
+  const openProject = (projectId: string) => {
+    setActiveProjectId(projectId)
+    setCurrentPage('admin-projects')
+  }
+  const openActivity = (type: string) => {
+    if (type === 'approval' || type === 'user') setCurrentPage('admin-users')
+    else if (type === 'project' || type === 'flag') setCurrentPage('admin-projects')
+    else if (type === 'subscription') setCurrentPage('admin-subscriptions')
+    else setCurrentPage('admin-analytics')
+  }
 
   return (
     <div className="p-6 md:p-8 space-y-8">
@@ -65,6 +75,7 @@ export default function AdminDashboard() {
           icon={Users}
           trend="+3 this month"
           trendUp
+          onClick={() => setCurrentPage('admin-providers')}
         />
         <StatCard
           title="Companies"
@@ -72,12 +83,14 @@ export default function AdminDashboard() {
           icon={Building2}
           trend="+2 this month"
           trendUp
+          onClick={() => setCurrentPage('admin-companies')}
         />
         <StatCard
           title="Active Projects"
           value={activeProjects}
           icon={FolderOpen}
           trend={`${projects.length} total`}
+          onClick={() => setCurrentPage('admin-projects')}
         />
         <StatCard
           title="Pending Approvals"
@@ -85,6 +98,7 @@ export default function AdminDashboard() {
           icon={AlertTriangle}
           trend="Needs review"
           alert={pendingApprovals > 0}
+          onClick={() => setCurrentPage('admin-providers')}
         />
       </div>
 
@@ -94,18 +108,21 @@ export default function AdminDashboard() {
           value={proposalsSubmitted}
           icon={FileText}
           trend="All bids"
+          onClick={() => setCurrentPage('admin-proposals')}
         />
         <StatCard
           title="Matched Providers"
           value={matchedProviders}
           icon={Activity}
           trend="Invited to bid"
+          onClick={() => setCurrentPage('admin-projects')}
         />
         <StatCard
           title="Active Subscriptions"
           value={activeSubscriptions}
           icon={Star}
           trend={`$${mrr.toLocaleString()} MRR`}
+          onClick={() => setCurrentPage('admin-subscriptions')}
         />
         <StatCard
           title="Completed Projects"
@@ -113,6 +130,7 @@ export default function AdminDashboard() {
           icon={CheckCircle}
           trend="Delivered work"
           trendUp
+          onClick={() => setCurrentPage('admin-projects')}
         />
       </div>
 
@@ -123,18 +141,21 @@ export default function AdminDashboard() {
           icon={TrendingUp}
           trend="+12% vs last month"
           trendUp
+          onClick={() => setCurrentPage('admin-subscriptions')}
         />
         <StatCard
           title="Pro Subscribers"
           value={proProviders}
           icon={Star}
           trend={`of ${providers.length} providers`}
+          onClick={() => setCurrentPage('admin-subscriptions')}
         />
         <StatCard
           title="Avg Match Score"
           value="87%"
           icon={Activity}
           trend="AI accuracy"
+          onClick={() => setCurrentPage('admin-analytics')}
         />
         <StatCard
           title="Completion Rate"
@@ -142,6 +163,7 @@ export default function AdminDashboard() {
           icon={CheckCircle}
           trend="Projects completed"
           trendUp
+          onClick={() => setCurrentPage('admin-analytics')}
         />
       </div>
 
@@ -154,7 +176,11 @@ export default function AdminDashboard() {
           </div>
           <div className="divide-y divide-border/40">
             {recentActivity.map((item) => (
-              <div key={item.id} className="flex items-start gap-3 px-5 py-3.5">
+              <button
+                key={item.id}
+                className="w-full flex items-start gap-3 px-5 py-3.5 text-left hover:bg-muted/10 transition-colors"
+                onClick={() => openActivity(item.type)}
+              >
                 <div className={`mt-0.5 shrink-0 ${item.color}`}>
                   <item.icon className="h-4 w-4" />
                 </div>
@@ -164,7 +190,7 @@ export default function AdminDashboard() {
                     <Clock className="h-3 w-3" />{item.time}
                   </p>
                 </div>
-              </div>
+              </button>
             ))}
           </div>
         </div>
@@ -177,7 +203,11 @@ export default function AdminDashboard() {
           </div>
           <div className="divide-y divide-border/40">
             {topProviders.map((p, i) => (
-              <div key={p.id} className="flex items-center gap-3 px-5 py-3">
+              <button
+                key={p.id}
+                className="w-full flex items-center gap-3 px-5 py-3 text-left hover:bg-muted/10 transition-colors"
+                onClick={() => setCurrentPage('admin-providers')}
+              >
                 <div className="h-7 w-7 rounded-full bg-primary/15 flex items-center justify-center text-xs font-bold text-primary shrink-0">
                   {i + 1}
                 </div>
@@ -197,7 +227,7 @@ export default function AdminDashboard() {
                     {p.subscriptionPlan === 'none' ? 'Free' : p.subscriptionPlan}
                   </span>
                 </div>
-              </div>
+              </button>
             ))}
           </div>
         </div>
@@ -207,7 +237,10 @@ export default function AdminDashboard() {
       <div className="rounded-xl border border-border bg-card shadow-sm">
         <div className="p-5 border-b border-border flex items-center justify-between">
           <h2 className="font-semibold">Recent Projects</h2>
-          <button className="text-xs text-primary flex items-center gap-0.5 hover:underline">
+          <button
+            className="text-xs text-primary flex items-center gap-0.5 hover:underline"
+            onClick={() => setCurrentPage('admin-projects')}
+          >
             View all <ChevronRight className="h-3 w-3" />
           </button>
         </div>
@@ -224,7 +257,19 @@ export default function AdminDashboard() {
             </thead>
             <tbody className="divide-y divide-border/30">
               {recentProjects.map((p) => (
-                <tr key={p.id} className="hover:bg-muted/10 transition-colors">
+                <tr
+                  key={p.id}
+                  className="hover:bg-muted/10 transition-colors cursor-pointer"
+                  onClick={() => openProject(p.id)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault()
+                      openProject(p.id)
+                    }
+                  }}
+                >
                   <td className="px-5 py-3 font-medium max-w-[200px] truncate">{p.title}</td>
                   <td className="px-4 py-3 text-muted-foreground">{p.companyName}</td>
                   <td className="px-4 py-3 text-accent font-medium">{p.budget}</td>
