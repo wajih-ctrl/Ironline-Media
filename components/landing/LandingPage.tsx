@@ -88,8 +88,8 @@ export default function LandingPage() {
       <nav className="sticky top-0 z-50 border-b border-border/50 bg-background/90 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="h-7 w-7 rounded bg-accent flex items-center justify-center">
-              <Zap className="h-4 w-4 text-accent-foreground" />
+            <div className="h-7 w-auto rounded bg-accent flex items-center justify-center p-1">
+              <img src="/Logo-2.jpeg" alt="Ironline Media" className="h-6 w-auto object-contain" />
             </div>
             <span className="text-lg font-bold tracking-tight">
               Ironline <span className="text-accent">Media</span>

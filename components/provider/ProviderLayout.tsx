@@ -53,8 +53,8 @@ export default function ProviderLayout() {
         mobileOpen ? 'translate-x-0' : '-translate-x-full'
       )}>
         <div className="h-16 flex items-center gap-2.5 px-5 border-b border-sidebar-border shrink-0">
-          <div className="h-7 w-7 rounded bg-accent flex items-center justify-center shrink-0">
-            <Zap className="h-4 w-4 text-accent-foreground" />
+          <div className="h-7 w-7 rounded bg-accent flex items-center justify-center shrink-0 p-1">
+            <img src="/Logo-2.jpeg" alt="Ironline Media" className="h-6 w-auto object-contain" />
           </div>
           <span className="font-bold text-lg tracking-tight text-sidebar-foreground">
             Ironline <span className="text-accent">Media</span>
