@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     'Ironline Media connects oil and gas companies with trusted creative service providers who understand industrial work.',
   generator: 'v0.app',
   icons: {
-    icon: '/icon.svg',
+    icon: '/Logo-2.jpeg',
   },
 }
 
