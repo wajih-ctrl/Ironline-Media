@@ -173,11 +173,12 @@ export default function LandingPage() {
                 </div>
                 <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-700">94% ready</span>
               </div>
-              <div className="grid grid-cols-3 gap-3 py-4">
+              <div className="grid grid-cols-4 gap-3 py-4">
                 {[
                   ['8', 'matched'],
                   ['$4.8k', 'avg bid'],
                   ['2 days', 'first reply'],
+                  ['$650', 'provider MRR'],
                 ].map(([value, label]) => (
                   <div key={label} className="rounded-xl bg-muted/70 p-3">
                     <div className="text-xl font-bold text-foreground">{value}</div>
@@ -204,10 +205,6 @@ export default function LandingPage() {
                   </div>
                 ))}
               </div>
-            </div>
-            <div className="absolute -bottom-6 -left-6 rounded-xl border border-border bg-white/95 p-4 text-foreground shadow-xl backdrop-blur">
-              <p className="text-xs text-muted-foreground">Provider subscription MRR</p>
-              <p className="text-2xl font-bold">$650</p>
             </div>
           </div>
           </div>
@@ -455,7 +452,7 @@ export default function LandingPage() {
             <span className="font-semibold text-sm">Ironline Media</span>
           </div>
           <p className="text-xs text-muted-foreground">
-            &copy; 2025 Ironline Media. The Premier Oil & Gas Creative Marketplace.
+            &copy; 2026 Ironline Media. The Premier Oil & Gas Creative Marketplace.
           </p>
           <Button variant="ghost" size="sm" onClick={() => setCurrentPage('login')} className="text-xs text-muted-foreground">
             Enter Platform &rarr;
