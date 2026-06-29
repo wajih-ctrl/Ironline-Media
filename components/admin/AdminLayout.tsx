@@ -167,7 +167,7 @@ export default function AdminLayout() {
             <Menu className="h-5 w-5" />
           </button>
           <div className="flex items-center gap-2">
-            <Zap className="h-4 w-4 text-accent" />
+            <img src="/Logo-2.jpeg" alt="Ironline Media" className="h-6 w-auto rounded object-contain" />
             <span className="font-bold text-sm">Ironline Admin</span>
           </div>
           {pendingCount > 0 && (

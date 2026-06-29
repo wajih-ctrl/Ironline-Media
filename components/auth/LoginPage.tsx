@@ -83,8 +83,8 @@ export default function LoginPage() {
     <div className="min-h-screen bg-background flex flex-col">
       <div className="border-b border-border/50 px-6 h-16 flex items-center justify-between bg-card/80 backdrop-blur">
         <div className="flex items-center gap-2">
-          <div className="h-7 w-7 rounded bg-accent flex items-center justify-center">
-            <Zap className="h-4 w-4 text-accent-foreground" />
+          <div className="h-7 w-auto rounded bg-accent flex items-center justify-center p-1">
+            <img src="/Logo-2.jpeg" alt="Ironline Media" className="h-6 w-auto object-contain" />
           </div>
           <span className="text-lg font-bold tracking-tight">
             Ironline <span className="text-accent">Media</span>
